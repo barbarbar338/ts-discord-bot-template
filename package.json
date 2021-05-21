@@ -1,0 +1,50 @@
+{
+	"name": "ts-discord-bot-starter-template",
+	"version": "1.0.0",
+	"main": "dist",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/barbarbar338/ts-discord-bot-template"
+	},
+	"author": {
+		"email": "demirci.baris38@gmail.com",
+		"name": "Barış DEMİRCİ",
+		"url": "https://bariscodes.me/"
+	},
+	"license": "GPL-3.0",
+	"description": "🤖 TypeScript Discord botu başlangıç altyapısı",
+	"scripts": {
+		"start:prod": "cross-env NODE_ENV=production node dist",
+		"start:dev": "cross-env NODE_ENV=development nodemon",
+		"prebuild": "rimraf dist",
+		"build": "tsc",
+		"format": "prettier --write .",
+		"format:watch": "onchange . -- prettier --write {{changed}}",
+		"lint": "eslint --fix .",
+		"lint:watch": "onchange . -- eslint --fix {{changed}}"
+	},
+	"devDependencies": {
+		"@types/node": "^15.3.1",
+		"@types/ws": "^7.4.4",
+		"@typescript-eslint/eslint-plugin": "^4.24.0",
+		"@typescript-eslint/parser": "^4.24.0",
+		"cross-env": "^7.0.3",
+		"eslint": "^7.26.0",
+		"eslint-config-prettier": "^8.3.0",
+		"eslint-plugin-import": "^2.23.2",
+		"nodemon": "^2.0.7",
+		"onchange": "^7.1.0",
+		"prettier": "^2.3.0",
+		"rimraf": "^3.0.2",
+		"ts-node": "^9.1.1",
+		"typescript": "^4.2.4"
+	},
+	"dependencies": {
+		"bargs": "^1.0.2",
+		"discord.js": "^12.5.3",
+		"dotenv": "^9.0.2",
+		"pogger": "^0.0.8",
+		"ts-toolbelt": "^9.6.0",
+		"utility-types": "^3.10.0"
+	}
+}
