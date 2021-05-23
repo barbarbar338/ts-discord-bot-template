@@ -1,6 +1,6 @@
 import { Command } from "../../struct/Command";
 
-const PingCommand: Command = {
+const AvatarCommand: Command = {
 	aliases: ["avatar", "a", "pp", "pfp"],
 	description: "Belirttiğiniz kullanıcının avatarını gösterir.",
 	argsDefinitions: [],
@@ -13,4 +13,4 @@ const PingCommand: Command = {
 	},
 };
 
-export default PingCommand;
+export default AvatarCommand;
