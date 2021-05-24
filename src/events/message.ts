@@ -3,10 +3,12 @@ import { Core } from "../struct/Core";
 import { Event } from "../struct/Event";
 import { bargs } from "bargs";
 import { Object } from "ts-toolbelt";
+import { AFKData } from "../struct/Types";
 
 const MessageEvent: Object.Merge<
 	Event,
 	{
+		checkAFK: (client: Core, message: Message) => Promise<void>;
 		checkCooldown: (client: Core, message: Message) => Promise<boolean>;
 		checkPermissions: (
 			client: Core,
@@ -48,7 +50,43 @@ const MessageEvent: Object.Merge<
 
 		return false;
 	},
+	checkAFK: async (client, message) => {
+		const now = Date.now();
+		const selfData = (await client.database.global.get(
+			`${message.author.id}.afk`,
+		)) as AFKData;
+
+		if (selfData) {
+			await client.database.global.delete(`${message.author.id}.afk`);
+
+			const parsed = client.utils.parseMs(now - selfData.started_at);
+			await message.channel.send(
+				`AFK modundan çıktınız. AFK kalma süreniz: ${parsed.days}g ${parsed.hours}s ${parsed.minutes}d ${parsed.seconds}s`,
+			);
+		}
+
+		if (message.mentions.members) {
+			const mention = message.mentions.members.first();
+			if (
+				mention &&
+				!mention.user.bot &&
+				mention.user.id !== message.author.id
+			) {
+				const data = (await client.database.global.get(
+					`${mention.id}.afk`,
+				)) as AFKData;
+				if (!data) return;
+
+				const parsed = client.utils.parseMs(now - data.started_at);
+				await message.channel.send(
+					`\`${mention.user.tag}\` kullanıcısı ${parsed.days}g ${parsed.hours}s ${parsed.minutes}d ${parsed.seconds}s süredir AFK. Sebep: \`\`\`${data.reason}\`\`\``,
+				);
+			}
+		}
+	},
 	execute: async (client, message: Message) => {
+		await MessageEvent.checkAFK(client, message);
+
 		if (
 			message.author.bot ||
 			!message.guild ||
