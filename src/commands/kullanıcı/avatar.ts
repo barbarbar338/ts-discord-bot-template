@@ -5,7 +5,7 @@ const AvatarCommand: Command = {
 	description: "Belirttiğiniz kullanıcının avatarını gösterir.",
 	argsDefinitions: [],
 	permissions: [],
-	usage: "avatar <@kullanıcı>",
+	usage: "avatar [@kullanıcı]",
 	examples: ["avatar", "avatar @barbarbar338"],
 	execute: ({ message }) => {
 		const user = message.mentions.users.first() || message.author;

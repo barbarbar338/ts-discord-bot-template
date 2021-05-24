@@ -1,5 +1,10 @@
 import { Command } from "../../struct/Command";
-import { isFalsy } from "utility-types";
+import { Object } from "ts-toolbelt";
+import { Result } from "bargs/dist";
+
+interface HelpCommandArgs {
+	command: string;
+}
 
 const HelpCommand: Command = {
 	aliases: ["yardım", "y", "h", "help"],
@@ -16,9 +21,9 @@ const HelpCommand: Command = {
 	examples: ["yardım", "yardım ping"],
 	execute: async ({ client, message, args }) => {
 		const embedTemplate = client.utils.defaultEmbed();
-		const { command } = args;
+		const { command } = args as Object.Merge<HelpCommandArgs, Result>;
 
-		if (isFalsy(command)) {
+		if (!command) {
 			embedTemplate
 				.setTitle(`${client.user!.username} | Tüm Komutlar`)
 				.setDescription(
