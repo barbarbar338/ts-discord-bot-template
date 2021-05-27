@@ -42,6 +42,7 @@
 	"dependencies": {
 		"bargs": "^1.0.3",
 		"bookman": "^3.3.2",
+		"discord-buttons": "^2.4.1",
 		"discord.js": "^12.5.3",
 		"dotenv": "^9.0.2",
 		"pogger": "^0.0.8",
